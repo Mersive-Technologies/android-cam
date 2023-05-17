@@ -1,0 +1,25 @@
+I'm troubleshooting a connecting external USB camera's to Stonehenge, our custom embedded Android 7.  (API level 24) or higher.
+
+Currently I can't connect via ADB even though my device is rooted, I believe because the devices is in USB Accessory mode.
+brain> I've tried using the adb_usb.ini file to add the vendor and product ID's but that doesn't seem to work.
+
+If I run adb wait-for-device shell logcat, then the log output suggests that the device is in USB Accessory mode.
+
+Here is that logcat output:
+```
+12-31 17:00:22.474  1318  1318 W WiredAccessoryManager: This kernel does not have usb audio support
+12-31 17:00:22.474  1318  1318 I SystemServiceManager: Starting com.android.server.midi.MidiService$Lifecycle
+12-31 17:00:22.476  1318  1318 I SystemServiceManager: Starting com.android.server.usb.UsbService$Lifecycle
+12-31 17:00:22.477  1318  1318 I AlsaCardsParser: AlsaCardsParser.scan()
+12-31 17:00:22.478  1318  1318 I AlsaCardsParser:    0 [C920           ]: USB-Audio - HD Pro Webcam C920
+12-31 17:00:22.478  1318  1318 I AlsaCardsParser:                         HD Pro Webcam C920 at usb-xhci-hcd.0.auto-1.2, high speed
+12-31 17:00:22.478  1318  1318 D AlsaCardsParser: Adding card record: USB-Audio - HD Pro Webcam C920 : HD Pro Webcam C920
+12-31 17:00:22.479  1318  1318 I AlsaCardsParser:    1 [msm8996tashasbc]: msm8996-tasha-s - msm8996-tasha-sbc-snd-card
+12-31 17:00:22.479  1318  1318 I AlsaCardsParser:                         msm8996-tasha-sbc-snd-card
+12-31 17:00:22.479  1318  1318 D AlsaCardsParser: Adding card record: msm8996-tasha-s - msm8996-tasha-sbc-snd-card :
+12-31 17:00:22.481  1318  1318 D UsbDeviceManager: setEnabledFunctions functions=null, forceRestart=false
+12-31 17:00:22.481  1318  1318 I UsbDeviceManager: Setting USB config to accessory
+12-31 17:00:22.481  1318  1318 D UsbDeviceManager: setUsbConfig(none)
+```
+immediately after that last line I lose the adb connection
+
